@@ -9,22 +9,18 @@ class Solution:
         # get the height of the left tree
         # get the height of the right tree
         # check the height difference
-        def getHeight(root: Optional[TreeNode]) -> int:
+        def getHeight(root: Optional[TreeNode]) -> tuple:
             if not root:
-                return 0
-            height = max(getHeight(root.left), getHeight(root.right)) + 1
-            return height
-        
-        if not root:
-            return True
-        
-        left_height = getHeight(root.left)
-        right_height = getHeight(root.right)
-        
-        left_balanced = self.isBalanced(root.left)
-        right_balanced = self.isBalanced(root.right)
-        height_cond = abs(left_height - right_height) < 2
-        return left_balanced and right_balanced and height_cond
-        
-
+                return (0, True)
+            left_height, left_balanced = getHeight(root.left)
+            right_height, right_balanced = getHeight(root.right)
+            height = max(left_height, right_height) + 1
+            if not left_balanced or not right_balanced:
+                return (height, False)
+            
+            if abs(left_height - right_height) <= 1:
+                return (height, True)
+            return (height, False)
+            
+        return getHeight(root)[1]
         

@@ -2,7 +2,7 @@ class Solution:
     def minimumDeletions(self, s: str) -> int:
         # condition: all a must be before b
         # either remove all Bs before an index and all As after an index
-        if len(s) == 1 or "a" not in s or "b" not in s:
+        if len(s) == 1:
             return 0
         idx = -1
         a_count, b_count = [0 for i in range(len(s))], [0 for i in range(len(s))]
